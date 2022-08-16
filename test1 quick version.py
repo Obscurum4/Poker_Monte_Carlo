@@ -4,7 +4,9 @@ import random
 point_1 = 0
 point_2 = 0
 
-
+p1_winrate = 0
+p2_winrate = 0
+tie_rate = 0
 
 deck = ["AC","2C","3C","4C","5C","6C","7C","9C","8C","9C","10C","JC","QC","KC",
         "AD","2D","3D","4D","5D","6D","7D","9D","8D","9D","10D","JD","QD","KD",
@@ -15,7 +17,6 @@ deck = ["AC","2C","3C","4C","5C","6C","7C","9C","8C","9C","10C","JC","QC","KC",
 #Shuffles the deck
 def shuffle():
     random.shuffle(deck)
-    print(deck)
         
 hand1 = []
 hand2 = []
@@ -91,39 +92,44 @@ def hand_rank(cards):
   return 0
 
 
-
-def rank(point_1, point_2):
+def rank(point_1, point_2, p1_winrate, p2_winrate, tie_rate):
     x = str(hand_rank(hand1))
-    print(x)
     y = str(hand_rank(hand2))
-    print(y)
     if x < y:
         point_2 += 1
-        print("Player 2 wins")
+        p2_winrate += 1
     if x> y:
         point_1 += 1
-        print("Player 1 wins")
-    if x == y:
-        print("Tie")
-    print("Player 1 has ", point_1, "point/s")
-    print("Player 2 has ", point_2, " point/s")
+        p1_winrate += 1
+    else:
+        tie_rate += 1
 
 
+user = int(input("How many times do you want to run this program? "))
 
-
-for i in range(30):
+for i in range(user):
     shuffle()
     give_hands()
-    print(hand1)
-    print(hand2)
     hand_rank(hand1)
     hand_rank(hand2)
-    rank(point_1, point_2)
+    rank(point_1, point_2, p1_winrate, p2_winrate, tie_rate)
     hand1 = []
     hand2 = []
     deck = ["AC","2C","3C","4C","5C","6C","7C","9C","8C","9C","10C","JC","QC","KC",
         "AD","2D","3D","4D","5D","6D","7D","9D","8D","9D","10D","JD","QD","KD",
         "AH","2H","3H","4H","5H","6H","7H","9H","8H","9H","10H","JH","QH","KH",
         "AS","2S","3S","4S","5S","6S","7S","9S","8S","9S","10S","JS","QS","KS" ]
+
+def final(point_1, point_2, p1_winrate, p2_winrate, tie_rate, user):
+    print("Player 1 has ", point_1, "point/s")
+    print("Player 2 has ", point_2, " point/s")
+    print (p1_winrate)
+    print (p2_winrate)
+    print (tie_rate)
+
+        
+    
+final(point_1, point_2, p1_winrate, p2_winrate, tie_rate, user)
+
 
 
